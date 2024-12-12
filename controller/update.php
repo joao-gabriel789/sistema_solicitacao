@@ -19,7 +19,7 @@ require '../db.php';
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data_previsao = $_POST['data_previsao'];
 
@@ -29,13 +29,13 @@ if (isset($_GET['id'])) {
             $stmt->bindParam(':data_previsao', $data_previsao);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-
+            
             echo "Data de previsão atualizada com sucesso!";
         } catch (PDOException $e) {
             echo "Erro ao atualizar solicitação: " . $e->getMessage();
         }
     }
-
+    
     $sql = "SELECT * FROM cadastro_solicitacoes WHERE id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $id);
@@ -43,4 +43,5 @@ if (isset($_GET['id'])) {
     $solicitacao = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 ?>
+<?php exit(); ?>
 
